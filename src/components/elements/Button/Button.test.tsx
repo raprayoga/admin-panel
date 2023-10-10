@@ -1,4 +1,5 @@
-import { render, screen, fireEvent } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import '@testing-library/jest-dom'
 import Button from './index'
 
@@ -50,10 +51,11 @@ describe('Render Button', () => {
     }
   )
 
-  test('Sould handle click', () => {
+  test('Sould handle click', async () => {
+    const user = userEvent.setup()
     const handleClick = jest.fn()
     const { buttonElement } = setup({ onClick: handleClick() })
-    fireEvent.click(buttonElement)
+    await user.click(buttonElement)
     expect(handleClick).toHaveBeenCalledTimes(1)
   })
 })

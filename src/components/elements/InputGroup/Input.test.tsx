@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom'
 import { render, screen, fireEvent } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import { Input, InputGroup } from './index'
 import { HomeIcon } from '@heroicons/react/24/outline'
 
@@ -32,14 +33,11 @@ describe('Input test', () => {
     expect(inputElement).toHaveClass(style)
   })
 
-  test('sould handle input user', () => {
+  test('sould handle input user', async () => {
+    const user = userEvent.setup()
     const { inputElement } = setup({})
 
-    fireEvent.change(inputElement, {
-      target: {
-        value: inputText,
-      },
-    })
+    await user.type(inputElement, inputText)
     expect(inputElement).toHaveValue(inputText)
   })
 })
