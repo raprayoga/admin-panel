@@ -8,6 +8,19 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        primary: '#0060AE',
+        red: '#f42619',
+        gray: '#c6c0c0',
+        'gray-shadow': '#d1d1d1',
+        black: '#333130',
+        green: '#52bd94',
+        salmon: '#fff5f3',
+      },
+      gridTemplateColumns: {
+        'fill-12': 'repeat(auto-fill, minmax(12rem, 1fr))',
+        'fill-16': 'repeat(auto-fill, minmax(16rem, 1fr))',
+      },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
