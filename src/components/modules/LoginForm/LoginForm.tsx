@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import { Controller, useForm, SubmitHandler } from 'react-hook-form'
 import { Input, InputGroup } from '@/components/elements/InputGroup'
@@ -10,11 +10,11 @@ import {
 } from '@heroicons/react/24/outline'
 import avatar from '@/assets/images/male-avatar.png'
 import Button from '@/components/elements/Button'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { LoginInputForm } from '@/interface/auth'
 import { cn, formRules, getVariant } from '@/utils'
 import useToastStore from '@/store/toast'
+import { signIn } from 'next-auth/react'
 
 export function LoginForm({
   className,
@@ -23,6 +23,7 @@ export function LoginForm({
   const router = useRouter()
   const showToast = useToastStore((state) => state.showToast)
   const [isShowPass, setIsShowPass] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
 
   const {
     control,
@@ -32,34 +33,30 @@ export function LoginForm({
     mode: 'onChange',
   })
 
-  // useEffect(() => {
-  //   if (auth.error) {
-  //     updateIsShow({
-  //       isShow: true,
-  //       type: 'red',
-  //       message: auth.error?.message,
-  //     })
-  //   }
-
-  //   if (auth.isLogin) {
-  //     updateIsShow({
-  //       isShow: true,
-  //       type: 'green',
-  //       message: 'Berhasil login',
-  //     })
-
-  //     router.push('/')
-  //   }
-  // }, [dispatch, auth.error, auth.isLogin, router])
-
-  const onSubmit: SubmitHandler<LoginInputForm> = (data) => {
-    // dispatch(loginAsync(data))
-    console.log('SUBMIT')
-    showToast({
-      isShow: true,
-      type: 'green',
-      message: 'Berhasil login',
+  const onSubmit: SubmitHandler<LoginInputForm> = async (data) => {
+    setIsLoading(true)
+    const res = await signIn('credentials', {
+      email: data.email,
+      password: data.password,
+      redirect: false,
     })
+
+    if (res && res.ok) {
+      showToast({
+        isShow: true,
+        type: 'green',
+        message: 'Berhasil login',
+      })
+
+      router.push('/')
+    } else {
+      showToast({
+        isShow: true,
+        type: 'red',
+        message: 'Email or Password Not Valid',
+      })
+    }
+    setIsLoading(false)
   }
 
   const handleToggleShowPass = () => {
@@ -67,10 +64,6 @@ export function LoginForm({
       return !prevState
     })
   }
-
-  // useEffect(() => {
-  //   if (auth.isLogin) router.push('/')
-  // }, [auth.isLogin, router])
 
   return (
     <>
@@ -129,7 +122,7 @@ export function LoginForm({
                 <InputGroup className="mt-8 w-full">
                   <UserIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
                   <Input
-                    name="last_name"
+                    name="password"
                     type={isShowPass ? 'text' : 'password'}
                     placeholder="masukan password anda"
                     className="px-6"
@@ -163,20 +156,11 @@ export function LoginForm({
             type="submit"
             theme="primary"
             className="mt-8 w-full"
-            // isLoading={auth.loading}
+            isLoading={isLoading}
           >
             Login
           </Button>
         </form>
-
-        <div className="mt-5">
-          <span className="text-xs ">
-            belum punya akun? registrasi{' '}
-            <Link href="/register" className="font-bold text-primary">
-              di sini
-            </Link>
-          </span>
-        </div>
       </div>
     </>
   )

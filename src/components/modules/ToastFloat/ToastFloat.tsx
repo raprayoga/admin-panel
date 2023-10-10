@@ -1,8 +1,10 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Toast from '@/components/elements/Toast'
 import useToastStore from '@/store/toast'
+import { createPortal } from 'react-dom'
 
 export default function ToastFloat() {
+  const [mounted, setMounted] = useState(false)
   const updateIsShow = useToastStore((state) => state.updateIsShow)
   const { isShow, type, message } = useToastStore((state) => ({
     isShow: state.isShow,
@@ -18,9 +20,19 @@ export default function ToastFloat() {
     }
   }, [isShow, updateIsShow])
 
+  useEffect(() => {
+    setMounted(true)
+
+    return () => setMounted(false)
+  }, [])
+
   return (
-    <Toast onCLosed={() => updateIsShow(false)} isShow={isShow} theme={type}>
-      <p>{message}</p>
-    </Toast>
+    mounted &&
+    createPortal(
+      <Toast onCLosed={() => updateIsShow(false)} isShow={isShow} theme={type}>
+        <p>{message}</p>
+      </Toast>,
+      document.getElementById('floating-toast')!
+    )
   )
 }
