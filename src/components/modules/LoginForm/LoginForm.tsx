@@ -11,14 +11,12 @@ import {
 import avatar from '@/assets/images/male-avatar.png'
 import Button from '@/components/elements/Button'
 import { useRouter } from 'next/router'
-import { DataResponse, LoginInputForm } from '@/interface/auth'
+import { LoginInputForm } from '@/interface/auth'
 import { cn, formRules, getVariant } from '@/utils'
 import { signIn } from 'next-auth/react'
 import { showToast } from '@/store/toast'
 import { Dispatch } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
-import { getSession } from 'next-auth/react'
-import http from '@/services/baseService'
 
 export function LoginForm({
   className,
@@ -37,12 +35,6 @@ export function LoginForm({
     mode: 'onChange',
   })
 
-  const setToken = async () => {
-    const session = await getSession()
-    const user = session?.user as DataResponse
-    http.defaults.headers.common.Authorization = 'Bearer ' + user?.access_token
-  }
-
   const onSubmit: SubmitHandler<LoginInputForm> = async (data) => {
     setIsLoading(true)
     const res = await signIn('credentials', {
@@ -52,7 +44,6 @@ export function LoginForm({
     })
 
     if (res && res.ok && !res.error) {
-      setToken()
       dispatch(
         showToast({
           message: 'Berhasil login',
@@ -62,10 +53,12 @@ export function LoginForm({
 
       router.push('/')
     } else {
-      showToast({
-        message: 'Email or Password Not Valid',
-        type: 'red',
-      })
+      dispatch(
+        showToast({
+          message: 'Email or Password Not Valid',
+          type: 'red',
+        })
+      )
     }
     setIsLoading(false)
   }

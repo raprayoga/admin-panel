@@ -10,6 +10,7 @@ import { deleteUser } from '@/services/usersService'
 import { showToast } from '@/store/toast'
 import Dialog from '@/components/elements/Dialog'
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 
 const UserList = React.forwardRef<
   HTMLDivElement,
@@ -114,7 +115,9 @@ const UserList = React.forwardRef<
                     </div>
                   </td>
                   <td className="justif-around flex gap-2 px-6 py-4">
-                    <Button className="px-3 py-1">Detail</Button>
+                    <Link href={`users/${item._id}/detail`}>
+                      <Button className="px-3 py-1">Detail</Button>
+                    </Link>
                     <Button theme="yellow" className="px-3 py-1">
                       Edit
                     </Button>

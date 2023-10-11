@@ -18,7 +18,7 @@ interface DataResponse {
   totalPages: number
 }
 
-interface DocsResponse {
+export interface DocsResponse {
   _id: string
   name: string
   email: string

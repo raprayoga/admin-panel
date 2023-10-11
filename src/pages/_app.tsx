@@ -5,6 +5,8 @@ import type { NextComponentType } from 'next'
 import { useSession, SessionProvider } from 'next-auth/react'
 import { Provider } from 'react-redux'
 import store from '@/store/store'
+import { DataResponse } from '@/interface/auth'
+import http from '@/services/baseService'
 
 type CustomAppProps = AppProps & {
   Component: NextComponentType & { auth?: boolean } // add auth type
@@ -32,11 +34,14 @@ export default function App({
 
 function Auth({ children }: { children: React.ReactNode }) {
   // if `{ required: true }` is supplied, `status` can only be "loading" or "authenticated"
-  const { status } = useSession({ required: true })
+  const { data: session, status } = useSession({ required: true })
 
   if (status === 'loading') {
-    return <div>Loading...</div>
+    return <div></div>
   }
+  const user = session?.user as DataResponse
+  if (user)
+    http.defaults.headers.common.Authorization = 'Bearer ' + user?.access_token
 
   return children
 }

@@ -19,7 +19,7 @@ const initialState: UsersSliceState = {
 }
 
 export const usersAsync = createAsyncThunk<UsersResponse>(
-  'users/fetchServices',
+  'users/fetchUsers',
   async (_, { getState, rejectWithValue }) => {
     const state = getState() as sliceState
     return await users(state.users.form)
@@ -32,7 +32,7 @@ export const usersAsync = createAsyncThunk<UsersResponse>(
 )
 
 export const usersSlice = createSlice({
-  name: 'banners',
+  name: 'users',
   initialState,
   reducers: {
     search(state, action) {
