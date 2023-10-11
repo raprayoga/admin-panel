@@ -13,15 +13,17 @@ import Button from '@/components/elements/Button'
 import { useRouter } from 'next/router'
 import { LoginInputForm } from '@/interface/auth'
 import { cn, formRules, getVariant } from '@/utils'
-import useToastStore from '@/store/toast'
 import { signIn } from 'next-auth/react'
+import { showToast } from '@/store/toast'
+import { Dispatch } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 
 export function LoginForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const router = useRouter()
-  const showToast = useToastStore((state) => state.showToast)
+  const dispatch: Dispatch<any> = useDispatch()
   const [isShowPass, setIsShowPass] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -41,20 +43,22 @@ export function LoginForm({
       redirect: false,
     })
 
-    if (res && res.ok) {
-      showToast({
-        isShow: true,
-        type: 'green',
-        message: 'Berhasil login',
-      })
+    if (res && res.ok && !res.error) {
+      dispatch(
+        showToast({
+          message: 'Berhasil login',
+          type: 'green',
+        })
+      )
 
       router.push('/')
     } else {
-      showToast({
-        isShow: true,
-        type: 'red',
-        message: 'Email or Password Not Valid',
-      })
+      dispatch(
+        showToast({
+          message: 'Email or Password Not Valid',
+          type: 'red',
+        })
+      )
     }
     setIsLoading(false)
   }

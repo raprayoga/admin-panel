@@ -13,7 +13,7 @@ export const inputVariant = cva(
       },
     },
     defaultVariants: {
-      theme: 'red',
+      theme: 'default',
     },
   }
 )

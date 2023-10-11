@@ -16,6 +16,7 @@ const config: Config = {
         black: '#333130',
         green: '#52bd94',
         salmon: '#fff5f3',
+        yellow: '#ffc107',
       },
       gridTemplateColumns: {
         'fill-12': 'repeat(auto-fill, minmax(12rem, 1fr))',

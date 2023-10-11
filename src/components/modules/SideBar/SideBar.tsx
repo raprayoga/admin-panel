@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
@@ -8,17 +8,37 @@ import {
   UserGroupIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline'
+import { cn } from '@/utils'
+import { getSession } from 'next-auth/react'
+import { DataResponse } from '@/interface/auth'
+import http from '@/services/baseService'
 
 const SideBar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ ...props }, ref) => {
+>(({ className, ...props }, ref) => {
   const router = useRouter()
+
+  // const setToken = async () => {
+  //   const session = await getSession()
+  //   const user = session?.user as DataResponse
+  //   if (user) {
+  //     http.defaults.headers.common.Authorization =
+  //       'Bearer ' + user?.access_token
+  //   }
+  // }
+
+  // useEffect(() => {
+  //   setToken()
+  // }, [])
 
   return (
     <>
       <aside
-        className="h-screen w-1/5 min-w-[100px] bg-primary px-2.5 py-5"
+        className={cn(
+          'h-screen w-1/5 min-w-[100px] bg-primary px-2.5 py-5',
+          className
+        )}
         {...props}
         ref={ref}
       >

@@ -6,10 +6,10 @@ export interface LoginInputForm {
 export interface LoginResponse {
   statusCode: number
   message: string
-  data: DataRespnse
+  data: DataResponse
 }
 
-interface DataRespnse {
+export interface DataResponse {
   id: string
   name: string
   email: string

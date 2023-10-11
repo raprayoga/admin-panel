@@ -1,3 +1,4 @@
+import React from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
 import LoginForm from './index'
 
@@ -12,6 +13,6 @@ const meta: Meta<typeof LoginForm> = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-export const TextVariant: Story = {
+export const Default: Story = {
   render: (args) => <LoginForm {...args} className="w-full" />,
 }

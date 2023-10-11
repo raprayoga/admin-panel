@@ -1,8 +1,7 @@
 import axios from 'axios'
-import { BASE_API_URL } from '@/utils/constant'
 
 export default axios.create({
-  baseURL: BASE_API_URL,
+  baseURL: 'https://api-test.sinardigital.co.id/',
   headers: {
     'Content-type': 'application/json',
     common: {

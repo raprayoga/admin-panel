@@ -1,25 +1,28 @@
-import { create } from 'zustand'
-import { State } from '@/interface/toast'
+import { createSlice } from '@reduxjs/toolkit'
+import { ToastSliceState } from '@/interface/toast'
 
-export interface ToastState extends State {}
-
-type Action = {
-  updateIsShow: (isShow: State['isShow']) => void
-  showToast: ({ isShow, type, message }: ToastState) => void
-}
-
-// Create your store, which includes both state and (optionally) actions
-const useToastStore = create<State & Action>((set) => ({
+const initialState: ToastSliceState = {
   isShow: false,
   type: 'white',
   message: '',
-  updateIsShow: (isShow) => set(() => ({ isShow: isShow })),
-  showToast: ({ isShow, type, message }) =>
-    set(() => ({
-      isShow: isShow,
-      type: type,
-      message: message,
-    })),
-}))
+}
 
-export default useToastStore
+export const toastSlice = createSlice({
+  name: 'toast',
+  initialState,
+  reducers: {
+    showToast(state, action) {
+      state.isShow = true
+      state.type = action.payload.type
+      state.message = action.payload.message
+    },
+    hideToast(state) {
+      state.isShow = false
+    },
+  },
+})
+
+// Action creators are generated for each case reducer function
+export const { showToast, hideToast } = toastSlice.actions
+
+export default toastSlice.reducer
