@@ -8,17 +8,21 @@ import {
   UserGroupIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline'
+import { cn } from '@/utils'
 
 const SideBar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
->(({ ...props }, ref) => {
+>(({ className, ...props }, ref) => {
   const router = useRouter()
 
   return (
     <>
       <aside
-        className="h-screen w-1/5 min-w-[100px] bg-primary px-2.5 py-5"
+        className={cn(
+          'h-screen w-1/5 min-w-[100px] bg-primary px-2.5 py-5',
+          className
+        )}
         {...props}
         ref={ref}
       >

@@ -1,38 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { hideToast } from '@/store/toast'
+import { sliceState } from '@/interface/state'
+import { Dispatch } from '@reduxjs/toolkit'
 import Toast from '@/components/elements/Toast'
-import useToastStore from '@/store/toast'
-import { createPortal } from 'react-dom'
 
 export default function ToastFloat() {
-  const [mounted, setMounted] = useState(false)
-  const updateIsShow = useToastStore((state) => state.updateIsShow)
-  const { isShow, type, message } = useToastStore((state) => ({
-    isShow: state.isShow,
-    type: state.type,
-    message: state.message,
-  }))
+  const dispatch: Dispatch<any> = useDispatch()
+  const toast = useSelector((state: sliceState) => state.toast)
 
   useEffect(() => {
-    if (isShow) {
+    if (toast.isShow) {
       setTimeout(() => {
-        updateIsShow(false)
-      }, 5000)
+        dispatch(hideToast())
+      }, 3000)
     }
-  }, [isShow, updateIsShow])
-
-  useEffect(() => {
-    setMounted(true)
-
-    return () => setMounted(false)
-  }, [])
+  }, [dispatch, toast.isShow])
 
   return (
-    mounted &&
-    createPortal(
-      <Toast onCLosed={() => updateIsShow(false)} isShow={isShow} theme={type}>
-        <p>{message}</p>
-      </Toast>,
-      document.getElementById('floating-toast')!
-    )
+    <Toast
+      onCLosed={() => dispatch(hideToast())}
+      isShow={toast.isShow}
+      theme={toast.type}
+    >
+      <p>{toast.message}</p>
+    </Toast>
   )
 }

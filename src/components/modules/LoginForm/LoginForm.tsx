@@ -11,17 +11,21 @@ import {
 import avatar from '@/assets/images/male-avatar.png'
 import Button from '@/components/elements/Button'
 import { useRouter } from 'next/router'
-import { LoginInputForm } from '@/interface/auth'
+import { DataResponse, LoginInputForm } from '@/interface/auth'
 import { cn, formRules, getVariant } from '@/utils'
-import useToastStore from '@/store/toast'
 import { signIn } from 'next-auth/react'
+import { showToast } from '@/store/toast'
+import { Dispatch } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
+import { getSession } from 'next-auth/react'
+import http from '@/services/baseService'
 
 export function LoginForm({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const router = useRouter()
-  const showToast = useToastStore((state) => state.showToast)
+  const dispatch: Dispatch<any> = useDispatch()
   const [isShowPass, setIsShowPass] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -33,6 +37,12 @@ export function LoginForm({
     mode: 'onChange',
   })
 
+  const setToken = async () => {
+    const session = await getSession()
+    const user = session?.user as DataResponse
+    http.defaults.headers.common.Authorization = 'Bearer ' + user?.access_token
+  }
+
   const onSubmit: SubmitHandler<LoginInputForm> = async (data) => {
     setIsLoading(true)
     const res = await signIn('credentials', {
@@ -41,19 +51,20 @@ export function LoginForm({
       redirect: false,
     })
 
-    if (res && res.ok) {
-      showToast({
-        isShow: true,
-        type: 'green',
-        message: 'Berhasil login',
-      })
+    if (res && res.ok && !res.error) {
+      setToken()
+      dispatch(
+        showToast({
+          message: 'Berhasil login',
+          type: 'green',
+        })
+      )
 
       router.push('/')
     } else {
       showToast({
-        isShow: true,
-        type: 'red',
         message: 'Email or Password Not Valid',
+        type: 'red',
       })
     }
     setIsLoading(false)

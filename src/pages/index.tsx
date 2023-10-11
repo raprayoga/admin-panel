@@ -1,7 +1,13 @@
 import Article from '@/components/templates/Article'
-
+import { useSession } from 'next-auth/react'
 export default function HomePage() {
-  return <Article />
+  const { data: session, status, update } = useSession()
+
+  return (
+    <>
+      <Article />
+    </>
+  )
 }
 
 HomePage.auth = true

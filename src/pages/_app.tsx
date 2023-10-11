@@ -3,6 +3,8 @@ import type { AppProps } from 'next/app'
 import ToastFloat from '@/components/modules/ToastFloat/ToastFloat'
 import type { NextComponentType } from 'next'
 import { useSession, SessionProvider } from 'next-auth/react'
+import { Provider } from 'react-redux'
+import store from '@/store/store'
 
 type CustomAppProps = AppProps & {
   Component: NextComponentType & { auth?: boolean } // add auth type
@@ -13,16 +15,18 @@ export default function App({
   pageProps: { session, ...pageProps },
 }: CustomAppProps) {
   return (
-    <SessionProvider session={session}>
-      {Component.auth ? (
-        <Auth>
+    <Provider store={store}>
+      <SessionProvider session={session}>
+        {Component.auth ? (
+          <Auth>
+            <Component {...pageProps} />
+          </Auth>
+        ) : (
           <Component {...pageProps} />
-        </Auth>
-      ) : (
-        <Component {...pageProps} />
-      )}
-      <ToastFloat />
-    </SessionProvider>
+        )}
+        <ToastFloat />
+      </SessionProvider>
+    </Provider>
   )
 }
 
