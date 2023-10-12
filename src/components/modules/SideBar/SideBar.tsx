@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import {
@@ -9,28 +9,12 @@ import {
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline'
 import { cn } from '@/utils'
-import { getSession } from 'next-auth/react'
-import { DataResponse } from '@/interface/auth'
-import http from '@/services/baseService'
 
 const SideBar = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const router = useRouter()
-
-  // const setToken = async () => {
-  //   const session = await getSession()
-  //   const user = session?.user as DataResponse
-  //   if (user) {
-  //     http.defaults.headers.common.Authorization =
-  //       'Bearer ' + user?.access_token
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   setToken()
-  // }, [])
 
   return (
     <>
@@ -79,7 +63,7 @@ const SideBar = React.forwardRef<
           </li>
           <li
             className={`mx-2.5 my-2 ${
-              router.pathname === '/users' ? 'text-white' : 'text-gray'
+              router.pathname.includes('/users') ? 'text-white' : 'text-gray'
             }`}
           >
             <Link href="/users" className="flex">
@@ -89,12 +73,12 @@ const SideBar = React.forwardRef<
           </li>
           <li
             className={`mx-2.5 my-2 ${
-              router.pathname === '/account' ? 'text-white' : 'text-gray'
+              router.pathname === '/profile' ? 'text-white' : 'text-gray'
             }`}
           >
-            <Link href="/account" className="flex">
+            <Link href="/profile" className="flex">
               <UserCircleIcon className="mr-2 w-4" />
-              Account
+              Profile
             </Link>
           </li>
         </ul>

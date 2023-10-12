@@ -33,6 +33,7 @@ const authOptions: NextAuthOptions = {
   },
   pages: {
     signIn: '/auth/login',
+    signOut: '/auth/login',
     error: '/auth/login',
   },
 }

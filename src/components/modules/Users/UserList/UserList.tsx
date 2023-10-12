@@ -79,9 +79,6 @@ const UserList = React.forwardRef<
                 Role
               </th>
               <th scope="col" className="px-6 py-3">
-                Permission
-              </th>
-              <th scope="col" className="px-6 py-3">
                 Action
               </th>
             </tr>
@@ -94,33 +91,24 @@ const UserList = React.forwardRef<
             )}
             {users.length > 0 &&
               users.map((item) => (
-                <tr className="border-b bg-white" key={item._id}>
+                <tr
+                  className="border-b border-b-gray-shadow bg-white"
+                  key={item._id}
+                >
                   <td scope="row" className="whitespace-nowrap px-6 py-4">
                     {item.name}
                   </td>
                   <td className="px-6 py-4">{item.email}</td>
                   <td className="px-6 py-4">{item.role.name}</td>
-                  <td className="px-6 py-4">
-                    <div className="flex flex-wrap gap-1">
-                      {item.role.permissions.map((permission) => (
-                        <Button
-                          key={permission}
-                          variant="ghost"
-                          className="px-3 py-1"
-                          disabled
-                        >
-                          {permission}
-                        </Button>
-                      ))}
-                    </div>
-                  </td>
                   <td className="justif-around flex gap-2 px-6 py-4">
                     <Link href={`users/${item._id}/detail`}>
                       <Button className="px-3 py-1">Detail</Button>
                     </Link>
-                    <Button theme="yellow" className="px-3 py-1">
-                      Edit
-                    </Button>
+                    <Link href={`users/${item._id}/edit`}>
+                      <Button theme="yellow" className="px-3 py-1">
+                        Edit
+                      </Button>
+                    </Link>
                     <Button
                       theme="red"
                       className="px-3 py-1"
