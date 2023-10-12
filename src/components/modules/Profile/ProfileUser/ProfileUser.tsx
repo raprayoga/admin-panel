@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
-import Button from '@/components/elements/Button'
-import { sliceState } from '@/interface/state'
+import { signOut } from 'next-auth/react'
 import { useSelector, useDispatch } from 'react-redux'
-import { cn } from '@/utils'
 import { Dispatch } from '@reduxjs/toolkit'
 import { profileAsync } from '@/store/profile'
-import { signOut } from 'next-auth/react'
+import { cn } from '@/utils'
+import { sliceState } from '@/interface/state'
+import Button from '@/components/elements/Button'
 import UserInfo from '@/components/modules/UserInfo'
 
 const ProfileUser = React.forwardRef<

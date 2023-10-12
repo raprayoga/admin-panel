@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Button from '@/components/elements/Button'
-import { sliceState } from '@/interface/state'
 import { useSelector, useDispatch } from 'react-redux'
-import { cn } from '@/utils'
-import { userAsync } from '@/store/user'
 import { Dispatch } from '@reduxjs/toolkit'
+import { userAsync } from '@/store/user'
+import { cn } from '@/utils'
+import { sliceState } from '@/interface/state'
+import Button from '@/components/elements/Button'
 import UserInfo from '@/components/modules/UserInfo'
 
 const UserDetail = React.forwardRef<

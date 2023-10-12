@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
-import Button from '@/components/elements/Button'
-import { Input, InputGroup } from '@/components/elements/InputGroup'
-import { cn, formRules, getVariant } from '@/utils'
-import { TagIcon } from '@heroicons/react/24/outline'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { Dispatch } from '@reduxjs/toolkit'
 import { showToast } from '@/store/toast'
-import { CategoryInputForm } from '@/interface/categories'
 import { addCategories } from '@/services/categoriesService'
+import { cn, formRules, getVariant } from '@/utils'
+import { CategoryInputForm } from '@/interface/categories'
+import Button from '@/components/elements/Button'
+import { Input, InputGroup } from '@/components/elements/InputGroup'
+import { TagIcon } from '@heroicons/react/24/outline'
 
 const CategoryAdd = React.forwardRef<
   HTMLDivElement,

@@ -1,7 +1,7 @@
 import React from 'react'
 import DefaultLayout from '@/components/layouts/DefaultLayout'
 import ArticleList from '@/components/modules/Articles/ArticleList'
-import ArticlesSearchForm from '../modules/Articles/ArticlesSearchForm'
+import ArticlesSearchForm from '@/components/modules/Articles/ArticlesSearchForm'
 
 export default function Articles() {
   return (
