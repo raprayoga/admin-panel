@@ -58,19 +58,21 @@ const ArticlesDetail = React.forwardRef<
               <td className="px-6 py-4">categories</td>
               <td className="border-l border-l-gray-shadow px-6 py-4">
                 <div className="flex flex-wrap gap-1">
-                  {categories.map(
-                    (category) =>
-                      articleData?.categories.includes(category._id) && (
-                        <Button
-                          variant="ghost"
-                          key={category._id}
-                          className="px-2 py-1 text-xs lg:text-xs"
-                          disabled
-                        >
-                          {category.name}
-                        </Button>
-                      )
-                  )}
+                  {articleData &&
+                    articleData.categories &&
+                    categories.map(
+                      (category) =>
+                        articleData?.categories.includes(category._id) && (
+                          <Button
+                            variant="ghost"
+                            key={category._id}
+                            className="px-2 py-1 text-xs lg:text-xs"
+                            disabled
+                          >
+                            {category.name}
+                          </Button>
+                        )
+                    )}
                 </div>
               </td>
             </tr>
@@ -84,13 +86,13 @@ const ArticlesDetail = React.forwardRef<
               <td className="px-6 py-4">Author</td>
               <td className="flex flex-col items-center border-l border-l-gray-shadow px-6 py-4">
                 <Image
-                  src={articleData?.author.avatar || ''}
+                  src={articleData?.author?.avatar || ''}
                   alt="author"
                   width={75}
                   height={75}
                   className="h-[75px] w-[75px] rounded-full"
                 />
-                {articleData?.author.name}
+                {articleData?.author?.name}
               </td>
             </tr>
             {articleData && articleData.content && (

@@ -46,7 +46,7 @@ const UserAdd = React.forwardRef<
       .then(() => {
         dispatch(
           showToast({
-            message: 'success add user',
+            message: 'success to add user',
             type: 'green',
           })
         )

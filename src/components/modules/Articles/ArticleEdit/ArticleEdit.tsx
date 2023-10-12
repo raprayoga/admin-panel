@@ -65,7 +65,7 @@ const ArticleEdit = React.forwardRef<
     if (article.successFetch) {
       dispatch(
         showToast({
-          message: 'success update article',
+          message: 'success to update article',
           type: 'green',
         })
       )

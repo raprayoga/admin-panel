@@ -43,7 +43,7 @@ const RoleEdit = React.forwardRef<
       .then(() => {
         dispatch(
           showToast({
-            message: 'success edit role',
+            message: 'success to edit role',
             type: 'green',
           })
         )
