@@ -4,3 +4,4 @@ import Categories from '@/components/templates/Categories'
 export default function IndexPage() {
   return <Categories />
 }
+IndexPage.auth = true

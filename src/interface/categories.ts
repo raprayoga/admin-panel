@@ -31,3 +31,7 @@ export interface CategoriesSliceState {
   totalPage: number
   form: CategoriesPayload
 }
+
+export interface CategoryInputForm {
+  name: string
+}
