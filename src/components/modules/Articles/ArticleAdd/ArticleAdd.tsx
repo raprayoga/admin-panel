@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import Button from '@/components/elements/Button'
 import { Input, InputGroup } from '@/components/elements/InputGroup'
 import {
@@ -18,8 +18,7 @@ import { categoriesAsync } from '@/store/categories'
 import { addArticles } from '@/services/articlesService'
 import { ArticleInputForm } from '@/interface/article'
 import Select from '@/components/elements/Select'
-import { CKEditor } from '@ckeditor/ckeditor5-react'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import dynamic from 'next/dynamic'
 
 const ArticleAdd = React.forwardRef<
   HTMLDivElement,
@@ -31,6 +30,11 @@ const ArticleAdd = React.forwardRef<
   )
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const Editor = useMemo(() => {
+    return dynamic(() => import('../../../elements/Editor/Editor'), {
+      ssr: false,
+    })
+  }, [])
 
   const {
     control,
@@ -260,10 +264,8 @@ const ArticleAdd = React.forwardRef<
             <div
               className={`mb-4 border border-${getVariant(isDirty, !!error)}`}
             >
-              <CKEditor
-                editor={ClassicEditor}
-                onChange={(event, editor) => {
-                  const data = editor.getData()
+              <Editor
+                onChange={(data) => {
                   onChange(data)
                 }}
                 onBlur={onBlur}

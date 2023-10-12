@@ -4,3 +4,4 @@ import ArticlesEdit from '@/components/templates/ArticleEdit'
 export default function EditPage() {
   return <ArticlesEdit />
 }
+EditPage.auth = true
