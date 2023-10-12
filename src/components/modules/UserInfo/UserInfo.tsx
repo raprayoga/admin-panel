@@ -23,15 +23,8 @@ const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
     >(userData?.avatar)
 
     return (
-      <div className={className}>
-        <div
-          className={
-            (cn('mb-10 flex flex-col items-center justify-center text-center'),
-            className)
-          }
-          {...props}
-          ref={ref}
-        >
+      <div className={className} {...props} ref={ref}>
+        <div className="mb-10 flex flex-col items-center justify-center text-center">
           <div className="relative">
             <Image
               src={src || ''}
