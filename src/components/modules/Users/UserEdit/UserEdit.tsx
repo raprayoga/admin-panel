@@ -17,11 +17,10 @@ import { sliceState } from '@/interface/state'
 import Select from '@/components/elements/Select'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { UserEditInputForm } from '@/interface/user'
-import { roles } from '@/services/rolesService'
-import { DataResponse } from '@/interface/roles'
 import { Dispatch } from '@reduxjs/toolkit'
 import { userAsync, userEditAsync } from '@/store/user'
 import { showToast } from '@/store/toast'
+import { rolesAsync } from '@/store/roles'
 
 const UserEdit = React.forwardRef<
   HTMLDivElement,
@@ -29,12 +28,12 @@ const UserEdit = React.forwardRef<
 >(({ className, ...props }, ref) => {
   const dispatch: Dispatch<any> = useDispatch()
   const user = useSelector((state: sliceState) => state.user)
+  const rolesList = useSelector((state: sliceState) => state.roles.data)
   const userData = user?.data
   const router = useRouter()
   const [src, setSrc] = useState<
     string | typeof profilePhoto | null | undefined
   >(userData?.avatar)
-  const [rolesList, setRolesList] = useState<DataResponse[]>([])
   const id = router.query.id as string
 
   const {
@@ -51,7 +50,7 @@ const UserEdit = React.forwardRef<
 
   useEffect(() => {
     dispatch(userAsync(id))
-    fetchRole()
+    dispatch(rolesAsync())
   }, [])
 
   useEffect(() => {
@@ -74,11 +73,6 @@ const UserEdit = React.forwardRef<
       router.back()
     }
   }, [dispatch, router, user.error, user.successFetch])
-
-  const fetchRole = async () => {
-    const data = await roles()
-    setRolesList(data.data)
-  }
 
   const handleCancel = () => {
     router.back()
