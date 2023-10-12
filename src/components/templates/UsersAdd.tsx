@@ -1,6 +1,6 @@
 import React from 'react'
 import DefaultLayout from '@/components/layouts/DefaultLayout'
-import UserAdd from '../modules/Users/UserAdd'
+import UserAdd from '@/components/modules/Users/UserAdd'
 
 export default function UsersAdd() {
   return (

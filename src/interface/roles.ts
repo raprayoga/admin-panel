@@ -9,3 +9,9 @@ export interface DataResponse {
   name: string
   permissions: string[]
 }
+
+export interface RolesSliceState {
+  loading: boolean
+  data: DataResponse[]
+  error?: null | RolesResponse
+}

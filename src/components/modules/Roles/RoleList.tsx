@@ -1,36 +1,33 @@
-import React, { useState } from 'react'
-import { cn } from '@/utils'
-import { useSelector, useDispatch } from 'react-redux'
-import { sliceState } from '@/interface/state'
+import React, { useState, useEffect } from 'react'
 import Button from '@/components/elements/Button'
-import { Pagination } from '@/components/elements/Pagination'
-import { changePage, usersAsync } from '@/store/users'
-import { Dispatch } from '@reduxjs/toolkit'
-import { deleteUser } from '@/services/usersService'
-import { showToast } from '@/store/toast'
 import Dialog from '@/components/elements/Dialog'
+import { cn } from '@/utils'
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
+import { Dispatch } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
+import { showToast } from '@/store/toast'
+import { sliceState } from '@/interface/state'
+import { rolesAsync } from '@/store/roles'
+import { deleteRole } from '@/services/rolesService'
 
-const UserList = React.forwardRef<
+const RoleList = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const dispatch: Dispatch<any> = useDispatch()
-  const userState = useSelector((state: sliceState) => state.users)
-  const users = userState.data
+  const rolesState = useSelector((state: sliceState) => state.roles)
+  const roles = rolesState.data
   const [isShowDialog, setIsShowDialog] = useState(false)
   const [idDelete, setIdDelete] = useState('')
 
-  const handleChangePage = (page: number) => {
-    dispatch(changePage(page))
-    dispatch(usersAsync())
-  }
+  useEffect(() => {
+    dispatch(rolesAsync())
+  }, [dispatch])
 
   const handleDeleteItem = () => {
-    deleteUser(idDelete)
+    deleteRole(idDelete)
       .then(() => {
-        dispatch(usersAsync())
         dispatch(
           showToast({
             message: 'Success to delete',
@@ -73,10 +70,7 @@ const UserList = React.forwardRef<
                 Name
               </th>
               <th scope="col" className="px-6 py-3">
-                Email
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Role
+                Permission
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
@@ -84,27 +78,36 @@ const UserList = React.forwardRef<
             </tr>
           </thead>
           <tbody>
-            {users.length === 0 && (
+            {roles.length === 0 && (
               <tr className="text-center">
-                <td colSpan={4}>User belum tersedia</td>
+                <td colSpan={3}>Roles belum tersedia</td>
               </tr>
             )}
-            {users.length > 0 &&
-              users.map((item) => (
+            {roles.length > 0 &&
+              roles.map((role) => (
                 <tr
                   className="border-b border-b-gray-shadow bg-white"
-                  key={item._id}
+                  key={role._id}
                 >
                   <td scope="row" className="whitespace-nowrap px-6 py-4">
-                    {item.name}
+                    {role.name}
                   </td>
-                  <td className="px-6 py-4">{item.email}</td>
-                  <td className="px-6 py-4">{item.role.name}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex flex-wrap gap-1 ">
+                      {role.permissions.map((permission) => (
+                        <Button
+                          variant="ghost"
+                          key={permission}
+                          className="px-3 py-1"
+                          disabled
+                        >
+                          {permission}
+                        </Button>
+                      ))}
+                    </div>
+                  </td>
                   <td className="justif-around flex gap-2 px-6 py-4">
-                    <Link href={`users/${item._id}/detail`}>
-                      <Button className="px-3 py-1">Detail</Button>
-                    </Link>
-                    <Link href={`users/${item._id}/edit`}>
+                    <Link href={`roles/${role._id}/edit`}>
                       <Button theme="yellow" className="px-3 py-1">
                         Edit
                       </Button>
@@ -112,7 +115,7 @@ const UserList = React.forwardRef<
                     <Button
                       theme="red"
                       className="px-3 py-1"
-                      onClick={() => handleConfirmDelete(item._id)}
+                      onClick={() => handleConfirmDelete(role._id)}
                     >
                       Delete
                     </Button>
@@ -123,13 +126,6 @@ const UserList = React.forwardRef<
         </table>
       </div>
 
-      <Pagination
-        className="float-right mt-5"
-        onPageChange={handleChangePage}
-        currentPage={userState.page}
-        lastPage={userState.totalPage}
-      />
-
       <Dialog
         isShow={isShowDialog}
         className="flex w-[280px] flex-col items-center"
@@ -138,7 +134,7 @@ const UserList = React.forwardRef<
         <div className="mb-5 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-red">
           <ExclamationCircleIcon className="w-[30px] stroke-2 text-white" />
         </div>
-        <p className="text-sm">are you sure to delete this user ?</p>
+        <p className="text-sm">are you sure to delete this role ?</p>
         <p
           className="my-6 cursor-pointer text-sm font-bold text-primary"
           onClick={() => handleDeleteItem()}
@@ -158,6 +154,6 @@ const UserList = React.forwardRef<
     </>
   )
 })
-UserList.displayName = 'UserList'
+RoleList.displayName = 'RoleList'
 
-export { UserList }
+export { RoleList }
