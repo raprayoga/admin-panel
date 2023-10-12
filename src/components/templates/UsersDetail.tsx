@@ -1,7 +1,7 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import DefaultLayout from '@/components/layouts/DefaultLayout'
 import UserDetail from '@/components/modules/Users/UserDetail'
-import { useRouter } from 'next/router'
 import { ArrowLeftIcon } from '@heroicons/react/24/outline'
 
 export default function UsersDetail() {

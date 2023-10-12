@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { hideToast } from '@/store/toast'
-import { sliceState } from '@/interface/state'
 import { Dispatch } from '@reduxjs/toolkit'
+import { sliceState } from '@/interface/state'
 import Toast from '@/components/elements/Toast'
 
 export default function ToastFloat() {

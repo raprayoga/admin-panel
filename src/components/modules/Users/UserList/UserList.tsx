@@ -1,16 +1,16 @@
 import React, { useState } from 'react'
-import { cn } from '@/utils'
+import Link from 'next/link'
 import { useSelector, useDispatch } from 'react-redux'
+import { Dispatch } from '@reduxjs/toolkit'
+import { changePage, usersAsync } from '@/store/users'
+import { showToast } from '@/store/toast'
+import { deleteUser } from '@/services/usersService'
+import { cn } from '@/utils'
 import { sliceState } from '@/interface/state'
 import Button from '@/components/elements/Button'
 import { Pagination } from '@/components/elements/Pagination'
-import { changePage, usersAsync } from '@/store/users'
-import { Dispatch } from '@reduxjs/toolkit'
-import { deleteUser } from '@/services/usersService'
-import { showToast } from '@/store/toast'
 import Dialog from '@/components/elements/Dialog'
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
-import Link from 'next/link'
 
 const UserList = React.forwardRef<
   HTMLDivElement,

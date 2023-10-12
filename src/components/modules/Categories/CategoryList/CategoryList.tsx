@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react'
-import Button from '@/components/elements/Button'
-import Dialog from '@/components/elements/Dialog'
-import { cn } from '@/utils'
-import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link'
 import { Dispatch } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import Link from 'next/link'
 import { categoriesAsync, changePage } from '@/store/categories'
 import { showToast } from '@/store/toast'
-import { Pagination } from '@/components/elements/Pagination'
-import { sliceState } from '@/interface/state'
 import { deleteCategories } from '@/services/categoriesService'
+import { sliceState } from '@/interface/state'
+import { cn } from '@/utils'
+import Button from '@/components/elements/Button'
+import { Pagination } from '@/components/elements/Pagination'
+import Dialog from '@/components/elements/Dialog'
+import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
 
 const CategoryList = React.forwardRef<
   HTMLDivElement,

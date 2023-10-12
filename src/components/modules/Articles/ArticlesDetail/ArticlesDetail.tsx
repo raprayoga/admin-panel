@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Image from 'next/image'
-import profilePhoto from '@/assets/images/male-avatar.png'
 import { useDispatch, useSelector } from 'react-redux'
-import { sliceState } from '@/interface/state'
-import { articleAsync } from '@/store/article'
 import { Dispatch } from '@reduxjs/toolkit'
-import Button from '@/components/elements/Button'
+import { articleAsync } from '@/store/article'
 import { categoriesAsync } from '@/store/categories'
 import { formatToLocal } from '@/utils/formatDate'
+import { sliceState } from '@/interface/state'
+import Button from '@/components/elements/Button'
+import profilePhoto from '@/assets/images/male-avatar.png'
 
 const ArticlesDetail = React.forwardRef<
   HTMLDivElement,
