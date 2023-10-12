@@ -5,6 +5,7 @@ import userReducer from './user'
 import profileReducer from './profile'
 import rolesReducer from './roles'
 import categoriesSlice from './categories'
+import articlesSlice from './articles'
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     profile: profileReducer,
     roles: rolesReducer,
     categories: categoriesSlice,
+    articles: articlesSlice,
   },
 })

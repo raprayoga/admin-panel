@@ -8,7 +8,7 @@ export default function LoginPage() {
   const router = useRouter()
 
   if (status === 'authenticated') {
-    router.push('/')
+    router.push('/articles')
   }
   return <Login />
 }

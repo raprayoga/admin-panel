@@ -86,8 +86,8 @@ const CategoryList = React.forwardRef<
           </thead>
           <tbody>
             {categories.length === 0 && (
-              <tr className="text-center">
-                <td colSpan={3}>Categories belum tersedia</td>
+              <tr className="border-b border-b-gray-shadow bg-white text-center">
+                <td colSpan={3}>Categories not yet available</td>
               </tr>
             )}
             {categories.length > 0 &&
