@@ -86,11 +86,7 @@ const UserEdit = React.forwardRef<
 
   return (
     <div {...props} className={cn('mx-auto w-4/5 ', className)} ref={ref}>
-      <div
-        className="mb-10 flex flex-col items-center justify-center text-center"
-        {...props}
-        ref={ref}
-      >
+      <div className="mb-10 flex flex-col items-center justify-center text-center">
         <div className="relative">
           <Image
             src={src || ''}
@@ -132,7 +128,7 @@ const UserEdit = React.forwardRef<
                     />
                   </InputGroup>
 
-                  <span className="float-right text-[10px] text-primary">
+                  <span className="float-right text-[10px] text-red">
                     {errors.name ? errors.name.message : ''}
                   </span>
                 </div>
@@ -143,7 +139,7 @@ const UserEdit = React.forwardRef<
             <label className="">Email</label>
             <Controller
               control={control}
-              rules={{ required: formRules.required }}
+              rules={{ required: formRules.required, pattern: formRules.email }}
               defaultValue={userData?.email}
               render={({
                 field: { onChange, onBlur, value },
@@ -162,7 +158,7 @@ const UserEdit = React.forwardRef<
                     />
                   </InputGroup>
 
-                  <span className="text-redy float-right text-[10px]">
+                  <span className="text-redy float-right text-[10px] text-red">
                     {errors.email ? errors.email.message : ''}
                   </span>
                 </div>
@@ -192,7 +188,7 @@ const UserEdit = React.forwardRef<
                     />
                   </InputGroup>
 
-                  <span className="text-redy float-right text-[10px]">
+                  <span className="text-redy float-right text-[10px] text-red">
                     {errors.bio ? errors.bio.message : ''}
                   </span>
                 </div>
@@ -222,7 +218,7 @@ const UserEdit = React.forwardRef<
                     />
                   </InputGroup>
 
-                  <span className="text-redy float-right text-[10px]">
+                  <span className="text-redy float-right text-[10px] text-red">
                     {errors.avatar ? errors.avatar.message : ''}
                   </span>
                 </div>
@@ -259,7 +255,7 @@ const UserEdit = React.forwardRef<
                     </Select>
                   </InputGroup>
 
-                  <span className="text-redy float-right text-[10px]">
+                  <span className="text-redy float-right text-[10px] text-red">
                     {errors.roleId ? errors.roleId.message : ''}
                   </span>
                 </div>
