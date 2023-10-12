@@ -20,9 +20,16 @@ export const deleteArticles = async (id: string): Promise<ArticlesResponse> => {
   return await http.delete(`articles/${id}`)
 }
 
-export const editRoles = async (
+export const editArticles = async (
   payload: ArticleInputForm
 ): Promise<ArticleResponse> => {
   const { data } = await http.patch(`articles`, payload)
+  return data
+}
+
+export const addArticles = async (
+  payload: ArticleInputForm
+): Promise<ArticleResponse> => {
+  const { data } = await http.post(`articles`, payload)
   return data
 }

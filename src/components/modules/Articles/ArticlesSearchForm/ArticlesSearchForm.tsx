@@ -43,7 +43,7 @@ const ArticlesSearchForm = React.forwardRef<
   return (
     <Card className={className} {...props} ref={ref}>
       <div className="flex justify-end">
-        <Link href="article/add">
+        <Link href="articles/add">
           <Button className="mb-3 px-2 py-1 text-right">
             <PlusIcon className="mr-1 w-4 text-white" />
             Add Article

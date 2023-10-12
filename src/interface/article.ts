@@ -38,11 +38,6 @@ export interface ArticleInputForm {
   thumbnail: string
   content: string
   status: string
-  categories: Category[]
+  categories: string[]
   author: string
-}
-
-interface Category {
-  name: string
-  slug: string
 }

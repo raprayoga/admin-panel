@@ -7,6 +7,7 @@ import { sliceState } from '@/interface/state'
 import { articleAsync } from '@/store/article'
 import { Dispatch } from '@reduxjs/toolkit'
 import Button from '@/components/elements/Button'
+import { categoriesAsync } from '@/store/categories'
 
 const ArticlesDetail = React.forwardRef<
   HTMLDivElement,
@@ -23,6 +24,7 @@ const ArticlesDetail = React.forwardRef<
 
   useEffect(() => {
     dispatch(articleAsync(id))
+    dispatch(categoriesAsync())
   }, [dispatch, id, router.query.id])
 
   return (
