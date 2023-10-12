@@ -1,15 +1,15 @@
 import React, { useState } from 'react'
+import Image from 'next/image'
+import { DataResponse } from '@/interface/profile'
+import Card from '@/components/elements/Card'
 import { Input, InputGroup } from '@/components/elements/InputGroup'
+import Button from '@/components/elements/Button'
 import {
   AtSymbolIcon,
   UserIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline'
-import Card from '@/components/elements/Card'
-import Button from '@/components/elements/Button'
-import Image from 'next/image'
 import profilePhoto from '@/assets/images/male-avatar.png'
-import { DataResponse } from '@/interface/profile'
 
 interface UserInfoProps extends React.HTMLAttributes<HTMLDivElement> {
   userData: null | DataResponse

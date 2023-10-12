@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from 'react'
-import Button from '@/components/elements/Button'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { Controller, SubmitHandler, useForm } from 'react-hook-form'
+import { Dispatch } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
+import { userAsync, userEditAsync } from '@/store/user'
+import { showToast } from '@/store/toast'
+import { rolesAsync } from '@/store/roles'
+import { cn, formRules, getVariant } from '@/utils'
+import { UserEditInputForm } from '@/interface/user'
+import { sliceState } from '@/interface/state'
+import Select from '@/components/elements/Select'
 import { Input, InputGroup } from '@/components/elements/InputGroup'
+import Button from '@/components/elements/Button'
 import {
   AtSymbolIcon,
   CameraIcon,
@@ -9,18 +20,7 @@ import {
   UserIcon,
   WrenchScrewdriverIcon,
 } from '@heroicons/react/24/outline'
-import { cn, formRules, getVariant } from '@/utils'
 import profilePhoto from '@/assets/images/male-avatar.png'
-import { useDispatch, useSelector } from 'react-redux'
-import { useRouter } from 'next/router'
-import { sliceState } from '@/interface/state'
-import Select from '@/components/elements/Select'
-import { Controller, SubmitHandler, useForm } from 'react-hook-form'
-import { UserEditInputForm } from '@/interface/user'
-import { Dispatch } from '@reduxjs/toolkit'
-import { userAsync, userEditAsync } from '@/store/user'
-import { showToast } from '@/store/toast'
-import { rolesAsync } from '@/store/roles'
 
 const UserEdit = React.forwardRef<
   HTMLDivElement,

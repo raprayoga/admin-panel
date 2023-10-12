@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
+import Link from 'next/link'
 import { Dispatch } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
 import { search, usersAsync } from '@/store/users'
+import { cn } from '@/utils'
+import { sliceState } from '@/interface/state'
+import Button from '@/components/elements/Button'
 import { Input, InputGroup } from '@/components/elements/InputGroup'
+import Card from '@/components/elements/Card'
 import {
   AtSymbolIcon,
   MagnifyingGlassIcon,
   PlusIcon,
   UserCircleIcon,
 } from '@heroicons/react/24/outline'
-import { cn } from '@/utils'
-import Button from '@/components/elements/Button'
-import Card from '@/components/elements/Card'
-import { sliceState } from '@/interface/state'
-import Link from 'next/link'
 
 const UsersSearchForm = React.forwardRef<
   HTMLDivElement,
