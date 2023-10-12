@@ -40,7 +40,7 @@ const ArticleList = React.forwardRef<
         dispatch(articlesAsync())
         dispatch(
           showToast({
-            message: 'Success to delete user',
+            message: 'Success to delete article',
             type: 'green',
           })
         )

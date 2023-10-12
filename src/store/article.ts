@@ -5,7 +5,7 @@ import {
   ArticleResponse,
   ArticleInputForm,
 } from '@/interface/article'
-import { article, editRoles } from '@/services/articlesService'
+import { article, editArticles } from '@/services/articlesService'
 
 const initialState: ArticleSliceState = {
   successFetch: false,
@@ -32,7 +32,7 @@ export const articleEditAsync = createAsyncThunk<
   ArticleResponse,
   ArticleInputForm
 >('article/fetchEditArticle', async (payload, { rejectWithValue }) => {
-  return await editRoles(payload)
+  return await editArticles(payload)
     .then((response) => response)
     .catch((error) => {
       if (error.response.status === 401) {

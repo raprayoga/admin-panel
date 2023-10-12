@@ -43,7 +43,6 @@ const ArticleAdd = React.forwardRef<
   })
 
   const onSubmit: SubmitHandler<ArticleInputForm> = async (data) => {
-    console.log(data)
     setIsLoading(true)
     addArticles(data)
       .then(() => {
@@ -69,7 +68,6 @@ const ArticleAdd = React.forwardRef<
 
   useEffect(() => {
     dispatch(categoriesAsync())
-    console.log(watch('categories'))
   }, [])
 
   const handleChangeCategories = (ability: string) => {

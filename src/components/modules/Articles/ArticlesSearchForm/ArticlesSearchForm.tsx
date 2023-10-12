@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Dispatch } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
 import { search, articlesAsync } from '@/store/articles'
@@ -6,8 +6,8 @@ import { Input, InputGroup } from '@/components/elements/InputGroup'
 import {
   AtSymbolIcon,
   MagnifyingGlassIcon,
+  MegaphoneIcon,
   PlusIcon,
-  UserCircleIcon,
 } from '@heroicons/react/24/outline'
 import Button from '@/components/elements/Button'
 import Card from '@/components/elements/Card'
@@ -26,14 +26,12 @@ const ArticlesSearchForm = React.forwardRef<
     const tempState = JSON.parse(JSON.stringify(articleState.form))
     const name = e.target.name
     const value = e.target.value
-    console.log(value)
     tempState[name] = value
     dispatch(
       search({
         form: tempState,
       })
     )
-    console.log(articleState)
   }
 
   const handleSearch = () => {
@@ -52,7 +50,7 @@ const ArticlesSearchForm = React.forwardRef<
       </div>
       <div className="flex justify-around gap-1">
         <InputGroup className="w-full">
-          <UserCircleIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
+          <MegaphoneIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
           <Input
             type="text"
             name="title"
