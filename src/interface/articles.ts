@@ -32,3 +32,25 @@ export interface ArticlesInputForm {
   status: string
   categories: string
 }
+
+export interface ArticlesSliceState {
+  loading: boolean
+  data: DocsResponse[]
+  error?: null | ArticlesResponse
+  page: number
+  totalPage: number
+  form: ArticlesPayload
+}
+
+export interface ArticlesPayload {
+  title?: string
+  status?: string
+  categories?: Category
+  page?: string
+  limit?: string
+}
+
+interface Category {
+  name: string
+  slug: string
+}

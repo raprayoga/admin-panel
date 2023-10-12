@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Dispatch } from '@reduxjs/toolkit'
 import { useSelector, useDispatch } from 'react-redux'
-import { search, usersAsync } from '@/store/users'
+import { search, articlesAsync } from '@/store/articles'
 import { Input, InputGroup } from '@/components/elements/InputGroup'
 import {
   AtSymbolIcon,
   MagnifyingGlassIcon,
+  MegaphoneIcon,
   PlusIcon,
-  UserCircleIcon,
 } from '@heroicons/react/24/outline'
-import { cn } from '@/utils'
 import Button from '@/components/elements/Button'
 import Card from '@/components/elements/Card'
 import { sliceState } from '@/interface/state'
 import Link from 'next/link'
+import Select from '@/components/elements/Select'
 
-const UsersSearchForm = React.forwardRef<
+const ArticlesSearchForm = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const dispatch: Dispatch<any> = useDispatch()
-  const userState = useSelector((state: sliceState) => state.users)
-
-  useEffect(() => {
-    dispatch(usersAsync())
-  }, [dispatch])
+  const articleState = useSelector((state: sliceState) => state.articles)
 
   const handleChange = (e: any) => {
-    const tempState = JSON.parse(JSON.stringify(userState.form))
+    const tempState = JSON.parse(JSON.stringify(articleState.form))
     const name = e.target.name
     const value = e.target.value
     tempState[name] = value
@@ -39,47 +35,49 @@ const UsersSearchForm = React.forwardRef<
   }
 
   const handleSearch = () => {
-    dispatch(usersAsync())
+    dispatch(articlesAsync())
   }
 
   return (
-    <Card className={cn('', className)} {...props} ref={ref}>
+    <Card className={className} {...props} ref={ref}>
       <div className="flex justify-end">
-        <Link href="users/add">
+        <Link href="articles/add">
           <Button className="mb-3 px-2 py-1 text-right">
             <PlusIcon className="mr-1 w-4 text-white" />
-            Add User
+            Add Article
           </Button>
         </Link>
       </div>
       <div className="flex justify-around gap-1">
         <InputGroup className="w-full">
-          <UserCircleIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
+          <MegaphoneIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
           <Input
             type="text"
-            name="name"
-            placeholder="name"
+            name="title"
+            placeholder="title"
             className="pl-6"
-            value={userState.form.name}
+            value={articleState.form.title}
             onChange={handleChange}
           />
         </InputGroup>
         <InputGroup className="w-full">
           <AtSymbolIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-          <Input
-            type="email"
-            name="email"
-            placeholder="email"
+          <Select
             className="pl-6"
-            value={userState.form.email}
+            name="status"
             onChange={handleChange}
-          />
+            value={articleState.form.status}
+          >
+            <option value="">Choose Status</option>
+            <option value="PUBLISHED">PUBLISHED</option>
+            <option value="PINNED">PINNED</option>
+          </Select>
         </InputGroup>
       </div>
       <Button
         className="mt-3 w-full"
         onClick={handleSearch}
-        isLoading={userState.loading}
+        isLoading={articleState.loading}
       >
         <MagnifyingGlassIcon className="mr-2 w-4" />
         Search
@@ -87,6 +85,6 @@ const UsersSearchForm = React.forwardRef<
     </Card>
   )
 })
-UsersSearchForm.displayName = 'UsersSearchForm'
+ArticlesSearchForm.displayName = 'ArticlesSearchForm'
 
-export { UsersSearchForm }
+export { ArticlesSearchForm }

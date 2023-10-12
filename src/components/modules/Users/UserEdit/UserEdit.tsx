@@ -97,7 +97,7 @@ const UserEdit = React.forwardRef<
         <q>{userData?.bio}</q>
       </div>
 
-      {userData && (
+      {userData && userData._id === id && (
         <>
           <form onSubmit={handleSubmit(onSubmit)}>
             <label className="">Name</label>

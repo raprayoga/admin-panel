@@ -1,39 +1,46 @@
-import React, { useState } from 'react'
-import { cn } from '@/utils'
-import { useSelector, useDispatch } from 'react-redux'
-import { sliceState } from '@/interface/state'
+import React, { useState, useEffect } from 'react'
 import Button from '@/components/elements/Button'
-import { Pagination } from '@/components/elements/Pagination'
-import { changePage, usersAsync } from '@/store/users'
-import { Dispatch } from '@reduxjs/toolkit'
-import { deleteUser } from '@/services/usersService'
-import { showToast } from '@/store/toast'
 import Dialog from '@/components/elements/Dialog'
+import { Pagination } from '@/components/elements/Pagination'
 import { ExclamationCircleIcon } from '@heroicons/react/24/outline'
+import { Dispatch } from '@reduxjs/toolkit'
+import { useDispatch, useSelector } from 'react-redux'
+import { sliceState } from '@/interface/state'
 import Link from 'next/link'
+import { showToast } from '@/store/toast'
+import { articlesAsync, changePage } from '@/store/articles'
+import { cn } from '@/utils'
+import { deleteArticles } from '@/services/articlesService'
+import { categoriesAsync } from '@/store/categories'
 
-const UserList = React.forwardRef<
+const ArticleList = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const dispatch: Dispatch<any> = useDispatch()
-  const userState = useSelector((state: sliceState) => state.users)
-  const users = userState.data
+  const articlesState = useSelector((state: sliceState) => state.articles)
+  const categories = useSelector((state: sliceState) => state.categories.data)
+  const articles = articlesState.data
   const [isShowDialog, setIsShowDialog] = useState(false)
   const [idDelete, setIdDelete] = useState('')
 
+  useEffect(() => {
+    dispatch(articlesAsync())
+    dispatch(categoriesAsync())
+  }, [dispatch])
+
   const handleChangePage = (page: number) => {
     dispatch(changePage(page))
-    dispatch(usersAsync())
+    dispatch(articlesAsync())
   }
 
   const handleDeleteItem = () => {
-    deleteUser(idDelete)
+    deleteArticles(idDelete)
       .then(() => {
-        dispatch(usersAsync())
+        dispatch(articlesAsync())
         dispatch(
           showToast({
-            message: 'Success to delete user',
+            message: 'Success to delete article',
             type: 'green',
           })
         )
@@ -70,13 +77,19 @@ const UserList = React.forwardRef<
           <thead className="bg-gray-shadow text-xs">
             <tr>
               <th scope="col" className="px-6 py-3">
-                Name
+                Title
               </th>
               <th scope="col" className="px-6 py-3">
-                Email
+                Status
               </th>
               <th scope="col" className="px-6 py-3">
-                Role
+                Slug
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Categories
+              </th>
+              <th scope="col" className="px-6 py-3">
+                Author
               </th>
               <th scope="col" className="px-6 py-3">
                 Action
@@ -84,27 +97,53 @@ const UserList = React.forwardRef<
             </tr>
           </thead>
           <tbody>
-            {users.length === 0 && (
+            {articles.length === 0 && (
               <tr className="border-b border-b-gray-shadow bg-white text-center">
-                <td colSpan={4}>User not yet available</td>
+                <td colSpan={6}>Articles not yet available</td>
               </tr>
             )}
-            {users.length > 0 &&
-              users.map((item) => (
+            {articles.length > 0 &&
+              articles.map((article) => (
                 <tr
                   className="border-b border-b-gray-shadow bg-white"
-                  key={item._id}
+                  key={article._id}
                 >
                   <td scope="row" className="whitespace-nowrap px-6 py-4">
-                    {item.name}
+                    {article.title}
                   </td>
-                  <td className="px-6 py-4">{item.email}</td>
-                  <td className="px-6 py-4">{item.role.name}</td>
+                  <td
+                    className={`px-6 py-4 font-bold ${
+                      article.status === 'PINNED' ? 'text-yellow' : 'text-green'
+                    }`}
+                  >
+                    {article.status}
+                  </td>
+                  <td className="px-6 py-4">{article.slug}</td>
+                  <td className="px-6 py-4">
+                    <div className="flex flex-wrap gap-1">
+                      {categories.map(
+                        (category) =>
+                          article.categories.includes(category._id) && (
+                            <Button
+                              variant="ghost"
+                              key={category._id}
+                              className="px-2 py-1 text-xs lg:text-xs"
+                              disabled
+                            >
+                              {category.name}
+                            </Button>
+                          )
+                      )}
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">{article.author.name}</td>
                   <td className="justif-around flex gap-2 px-6 py-4">
-                    <Link href={`users/${item._id}/detail`}>
-                      <Button className="px-3 py-1">Detail</Button>
+                    <Link href={`articles/${article._id}/detail`}>
+                      <Button theme="primary" className="px-3 py-1">
+                        Detail
+                      </Button>
                     </Link>
-                    <Link href={`users/${item._id}/edit`}>
+                    <Link href={`articles/${article._id}/edit`}>
                       <Button theme="yellow" className="px-3 py-1">
                         Edit
                       </Button>
@@ -112,7 +151,7 @@ const UserList = React.forwardRef<
                     <Button
                       theme="red"
                       className="px-3 py-1"
-                      onClick={() => handleConfirmDelete(item._id)}
+                      onClick={() => handleConfirmDelete(article._id)}
                     >
                       Delete
                     </Button>
@@ -126,8 +165,8 @@ const UserList = React.forwardRef<
       <Pagination
         className="float-right mt-5"
         onPageChange={handleChangePage}
-        currentPage={userState.page}
-        lastPage={userState.totalPage}
+        currentPage={articlesState.page}
+        lastPage={articlesState.totalPage}
       />
 
       <Dialog
@@ -138,7 +177,7 @@ const UserList = React.forwardRef<
         <div className="mb-5 flex h-[50px] w-[50px] items-center justify-center rounded-full bg-red">
           <ExclamationCircleIcon className="w-[30px] stroke-2 text-white" />
         </div>
-        <p className="text-sm">are you sure to delete this user ?</p>
+        <p className="text-sm">are you sure to delete this article ?</p>
         <p
           className="my-6 cursor-pointer text-sm font-bold text-primary"
           onClick={() => handleDeleteItem()}
@@ -158,6 +197,6 @@ const UserList = React.forwardRef<
     </>
   )
 })
-UserList.displayName = 'UserList'
+ArticleList.displayName = 'ArticleList'
 
-export { UserList }
+export { ArticleList }

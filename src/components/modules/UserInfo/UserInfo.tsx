@@ -10,7 +10,6 @@ import Button from '@/components/elements/Button'
 import Image from 'next/image'
 import profilePhoto from '@/assets/images/male-avatar.png'
 import { DataResponse } from '@/interface/profile'
-import { cn } from '@/utils'
 
 interface UserInfoProps extends React.HTMLAttributes<HTMLDivElement> {
   userData: null | DataResponse
