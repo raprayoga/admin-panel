@@ -32,13 +32,12 @@ const RoleAdd = React.forwardRef<
   })
 
   const onSubmit: SubmitHandler<RolesInputForm> = async (data) => {
-    console.log(data)
     setIsLoading(true)
     addRoles(data)
       .then(() => {
         dispatch(
           showToast({
-            message: 'success add user',
+            message: 'success add role',
             type: 'green',
           })
         )
@@ -67,16 +66,14 @@ const RoleAdd = React.forwardRef<
       tempPermissions.push(ability)
     }
     setValue('permissions', tempPermissions)
-    console.log(tempPermissions)
   }
 
   useEffect(() => {
-    fetchRole()
+    fetchhPermissions()
   }, [])
 
-  const fetchRole = async () => {
+  const fetchhPermissions = async () => {
     const data = await permissions()
-    console.log(data.data)
     setPermissionList(data.data)
   }
 
@@ -121,7 +118,6 @@ const RoleAdd = React.forwardRef<
         <label className="">Permission</label>
         <Controller
           control={control}
-          rules={{ required: formRules.required }}
           defaultValue={[]}
           render={({ field: { onBlur, value } }) => (
             <div className="mb-4">
@@ -132,14 +128,14 @@ const RoleAdd = React.forwardRef<
                       <input
                         id={ability}
                         type="checkbox"
-                        className="bg-gray-100 border-gray-300 dark:ring-offset-gray-800 dark:bg-gray-700 dark:border-gray-600 h-4 w-4 rounded text-blue-600 focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-600"
+                        className="bg-gray-100 border-gray-300  h-4 w-4 rounded text-blue-600 focus:ring-2 focus:ring-blue-500"
                         onBlur={onBlur}
                         onChange={() => handleChangePermissions(ability)}
-                        value={value}
+                        checked={watch('permissions').includes(ability)}
                       />
                       <label
                         htmlFor={ability}
-                        className="text-gray-900 dark:text-gray-300 ml-2 text-sm font-medium"
+                        className="text-gray-900 ml-2 text-sm font-medium"
                       >
                         {ability}
                       </label>

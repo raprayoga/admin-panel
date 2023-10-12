@@ -33,7 +33,7 @@ const UserList = React.forwardRef<
         dispatch(usersAsync())
         dispatch(
           showToast({
-            message: 'Success to delete',
+            message: 'Success to delete user',
             type: 'green',
           })
         )

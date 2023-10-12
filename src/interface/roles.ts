@@ -4,6 +4,12 @@ export interface RolesResponse {
   data: DataResponse[]
 }
 
+export interface RoleResponse {
+  statusCode: number
+  message: string
+  data: DataResponse
+}
+
 export interface DataResponse {
   _id: string
   name: string

@@ -30,7 +30,7 @@ const RoleList = React.forwardRef<
       .then(() => {
         dispatch(
           showToast({
-            message: 'Success to delete',
+            message: 'Success to delete role',
             type: 'green',
           })
         )
@@ -44,6 +44,7 @@ const RoleList = React.forwardRef<
         )
       })
     toggleShowDialog(false)
+    dispatch(rolesAsync())
   }
 
   const handleConfirmDelete = (id: string) => {
