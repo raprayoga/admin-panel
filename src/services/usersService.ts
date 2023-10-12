@@ -4,7 +4,7 @@ import {
   UserResponse,
 } from '@/interface/user'
 import http from './baseService'
-import { UsersResponse, UsersPayload, DocsResponse } from '@/interface/users'
+import { UsersResponse, UsersPayload } from '@/interface/users'
 
 export const users = async (payload: UsersPayload): Promise<UsersResponse> => {
   const { data } = await http.get('users', {
@@ -18,7 +18,7 @@ export const user = async (id: string): Promise<UserResponse> => {
   return data
 }
 
-export const deleteUser = async (id: string): Promise<DocsResponse> => {
+export const deleteUser = async (id: string): Promise<UserResponse> => {
   return await http.delete(`users/${id}`)
 }
 

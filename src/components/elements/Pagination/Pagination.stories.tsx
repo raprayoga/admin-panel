@@ -7,10 +7,9 @@ const meta: Meta<typeof Pagination> = {
     currentPage: 1,
     lastPage: 5,
     pageRangeDisplayed: 3,
-    onPageChange: (e) => console.log(e),
-    className: 'mt-10 ml-10'
+    className: 'mt-10 ml-10',
   },
-  tags: ['autodocs']
+  tags: ['autodocs'],
 }
 
 export default meta

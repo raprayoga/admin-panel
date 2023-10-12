@@ -10,6 +10,7 @@ import Button from '@/components/elements/Button'
 import Image from 'next/image'
 import profilePhoto from '@/assets/images/male-avatar.png'
 import { DataResponse } from '@/interface/profile'
+import { cn } from '@/utils'
 
 interface UserInfoProps extends React.HTMLAttributes<HTMLDivElement> {
   userData: null | DataResponse
@@ -24,7 +25,10 @@ const UserInfo = React.forwardRef<HTMLDivElement, UserInfoProps>(
     return (
       <div className={className}>
         <div
-          className="mb-10 flex flex-col items-center justify-center text-center"
+          className={
+            (cn('mb-10 flex flex-col items-center justify-center text-center'),
+            className)
+          }
           {...props}
           ref={ref}
         >
