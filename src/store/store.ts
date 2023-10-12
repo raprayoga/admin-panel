@@ -3,6 +3,7 @@ import toastReducer from './toast'
 import usersReducer from './users'
 import userReducer from './user'
 import profileReducer from './profile'
+import rolesReducer from './roles'
 
 export default configureStore({
   reducer: {
@@ -10,5 +11,6 @@ export default configureStore({
     users: usersReducer,
     user: userReducer,
     profile: profileReducer,
+    roles: rolesReducer,
   },
 })

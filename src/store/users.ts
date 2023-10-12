@@ -27,7 +27,6 @@ export const usersAsync = createAsyncThunk<UsersResponse>(
       .then((response: any) => response)
       .catch((error) => {
         if (error.response.status === 401) {
-          console.log('EROR UNAUTH')
           autoSignOut()
         }
         return rejectWithValue(error.response.data)

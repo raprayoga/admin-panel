@@ -1,7 +1,7 @@
 import React from 'react'
-import UsersAdd from '@/components/templates/UsersAdd'
+import RolesAdd from '@/components/templates/RolesAdd'
 
 export default function AddPage() {
-  return <UsersAdd />
+  return <RolesAdd />
 }
 AddPage.auth = true
