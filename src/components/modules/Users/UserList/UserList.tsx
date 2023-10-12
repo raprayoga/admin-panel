@@ -99,7 +99,7 @@ const UserList = React.forwardRef<
                     {item.name}
                   </td>
                   <td className="px-6 py-4">{item.email}</td>
-                  <td className="px-6 py-4">{item.role.name}</td>
+                  <td className="px-6 py-4">{item.role?.name}</td>
                   <td className="justif-around flex gap-2 px-6 py-4">
                     <Link href={`users/${item._id}/detail`}>
                       <Button className="px-3 py-1">Detail</Button>

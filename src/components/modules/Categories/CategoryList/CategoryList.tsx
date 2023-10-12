@@ -37,7 +37,7 @@ const CategoryList = React.forwardRef<
         dispatch(categoriesAsync())
         dispatch(
           showToast({
-            message: 'Success to delete user',
+            message: 'Success to delete category',
             type: 'green',
           })
         )

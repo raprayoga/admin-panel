@@ -52,7 +52,7 @@ const ArticleAdd = React.forwardRef<
       .then(() => {
         dispatch(
           showToast({
-            message: 'success add article',
+            message: 'success to add article',
             type: 'green',
           })
         )
