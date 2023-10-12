@@ -24,4 +24,4 @@ const Editor = ({
   )
 }
 
-export default Editor
+export { Editor }

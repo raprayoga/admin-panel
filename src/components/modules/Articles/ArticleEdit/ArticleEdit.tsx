@@ -33,7 +33,7 @@ const ArticleEdit = React.forwardRef<
   const router = useRouter()
   const id = router.query.id as string
   const Editor = useMemo(() => {
-    return dynamic(() => import('../../../elements/Editor/Editor'), {
+    return dynamic(() => import('../../../elements/Editor'), {
       ssr: false,
     })
   }, [])

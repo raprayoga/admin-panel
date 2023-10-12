@@ -31,7 +31,7 @@ const ArticleAdd = React.forwardRef<
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
   const Editor = useMemo(() => {
-    return dynamic(() => import('../../../elements/Editor/Editor'), {
+    return dynamic(() => import('../../../elements/Editor'), {
       ssr: false,
     })
   }, [])
