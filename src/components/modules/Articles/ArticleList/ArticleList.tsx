@@ -111,7 +111,13 @@ const ArticleList = React.forwardRef<
                   <td scope="row" className="whitespace-nowrap px-6 py-4">
                     {article.title}
                   </td>
-                  <td className="px-6 py-4">{article.status}</td>
+                  <td
+                    className={`px-6 py-4 font-bold ${
+                      article.status === 'PINNED' ? 'text-yellow' : 'text-green'
+                    }`}
+                  >
+                    {article.status}
+                  </td>
                   <td className="px-6 py-4">{article.slug}</td>
                   <td className="px-6 py-4">
                     <div className="flex flex-wrap gap-1">
@@ -122,6 +128,7 @@ const ArticleList = React.forwardRef<
                               variant="ghost"
                               key={category._id}
                               className="px-2 py-1 text-xs lg:text-xs"
+                              disabled
                             >
                               {category.name}
                             </Button>
@@ -131,12 +138,12 @@ const ArticleList = React.forwardRef<
                   </td>
                   <td className="px-6 py-4">{article.author.name}</td>
                   <td className="justif-around flex gap-2 px-6 py-4">
-                    <Link href={`article/${article.slug}/detail`}>
+                    <Link href={`articles/${article._id}/detail`}>
                       <Button theme="primary" className="px-3 py-1">
                         Detail
                       </Button>
                     </Link>
-                    <Link href={`article/${article.slug}/edit`}>
+                    <Link href={`articles/${article._id}/edit`}>
                       <Button theme="yellow" className="px-3 py-1">
                         Edit
                       </Button>
