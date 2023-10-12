@@ -8,6 +8,7 @@ import { articleAsync } from '@/store/article'
 import { Dispatch } from '@reduxjs/toolkit'
 import Button from '@/components/elements/Button'
 import { categoriesAsync } from '@/store/categories'
+import { formatToLocal } from '@/utils/formatDate'
 
 const ArticlesDetail = React.forwardRef<
   HTMLDivElement,
@@ -46,8 +47,20 @@ const ArticlesDetail = React.forwardRef<
       </div>
 
       <div>
-        <table className="mx-auto w-2/3 text-left text-sm">
+        <table className="mx-auto w-10/12 text-left text-sm">
           <tbody>
+            <tr className="border-b border-b-gray-shadow bg-white">
+              <td className="px-6 py-4">Created at</td>
+              <td className="border-l border-l-gray-shadow px-6 py-4">
+                {articleData ? formatToLocal(articleData?.createdAt) : '-'}
+              </td>
+            </tr>
+            <tr className="border-b border-b-gray-shadow bg-white">
+              <td className="px-6 py-4">updated at</td>
+              <td className="border-l border-l-gray-shadow px-6 py-4">
+                {articleData ? formatToLocal(articleData?.updatedAt) : '-'}
+              </td>
+            </tr>
             <tr className="border-b border-b-gray-shadow bg-white">
               <td className="px-6 py-4">status</td>
               <td className="border-l border-l-gray-shadow px-6 py-4">
