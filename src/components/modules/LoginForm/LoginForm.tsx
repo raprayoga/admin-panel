@@ -43,7 +43,7 @@ export function LoginForm({
       redirect: false,
     })
 
-    if (res && res.ok && !res.error) {
+    if (res && res.ok) {
       dispatch(
         showToast({
           message: 'Berhasil login',
