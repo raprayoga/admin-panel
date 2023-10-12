@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { UsersResponse, UsersSliceState } from '@/interface/users'
 import { sliceState } from '@/interface/state'
 import { users } from '@/services/usersService'
+import { autoSignOut } from '@/utils'
 
 const initialState: UsersSliceState = {
   loading: false,
@@ -24,8 +25,11 @@ export const usersAsync = createAsyncThunk<UsersResponse>(
     const state = getState() as sliceState
     return await users(state.users.form)
       .then((response: any) => response)
-      .catch((error: { response: { data: unknown } }) => {
-        // if (error.response.status === 401) Router.push('/login')
+      .catch((error) => {
+        if (error.response.status === 401) {
+          console.log('EROR UNAUTH')
+          autoSignOut()
+        }
         return rejectWithValue(error.response.data)
       })
   }

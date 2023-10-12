@@ -1,15 +1,19 @@
 export const formRules = {
   required: {
     value: true,
-    message: 'Field ini Harus diisi',
+    message: 'must be filled',
   },
   email: {
     value: /\S+@\S+\.\S+/,
-    message: 'Field ini harus berformat email',
+    message: 'must be in email format',
   },
   minNominal: (number: number) => ({
     value: number,
-    message: 'Harus lebih besar dari ' + number,
+    message: 'must be greater than ' + number,
+  }),
+  minLength: (number: number) => ({
+    value: number,
+    message: 'minimum length ' + number,
   }),
 }
 

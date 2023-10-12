@@ -1,11 +1,10 @@
-export interface UserSliceState {
-  successFetch: boolean
+export interface ProfileSliceState {
   loading: boolean
   data: null | DataResponse
-  error: null | UserResponse
+  error: null | ProfileResponse
 }
 
-export interface UserResponse {
+export interface ProfileResponse {
   statusCode: number
   message: string
   data: DataResponse
@@ -25,13 +24,4 @@ interface DataRole {
   _id: string
   name: string
   permissions: string[]
-}
-
-export interface UserEditInputForm {
-  id: string
-  name: string
-  email: string
-  bio: string
-  avatar: string
-  roleId: string
 }
