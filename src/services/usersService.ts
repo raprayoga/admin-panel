@@ -1,4 +1,8 @@
-import { DataResponse, UserEditInputForm, UserResponse } from '@/interface/user'
+import {
+  UserAddInputForm,
+  UserEditInputForm,
+  UserResponse,
+} from '@/interface/user'
 import http from './baseService'
 import { UsersResponse, UsersPayload, DocsResponse } from '@/interface/users'
 
@@ -22,5 +26,12 @@ export const editUsers = async (
   payload: UserEditInputForm
 ): Promise<UserResponse> => {
   const { data } = await http.patch('users', payload)
+  return data
+}
+
+export const addUsers = async (
+  payload: UserAddInputForm
+): Promise<UserResponse> => {
+  const { data } = await http.post('users', payload)
   return data
 }

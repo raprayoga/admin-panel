@@ -35,3 +35,12 @@ export interface UserEditInputForm {
   avatar: string
   roleId: string
 }
+
+export interface UserAddInputForm {
+  name: string
+  email: string
+  bio: string
+  avatar: string
+  roleId: string
+  password: string
+}
