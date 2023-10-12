@@ -18,7 +18,7 @@ const UserDetail = React.forwardRef<
   const userData = useSelector((state: sliceState) => state.user?.data)
 
   useEffect(() => {
-    if (router.query.id) dispatch(userAsync(id))
+    dispatch(userAsync(id))
   }, [dispatch, id, router.query.id])
 
   const handleToInput = () => {

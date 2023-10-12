@@ -46,12 +46,12 @@ export function LoginForm({
     if (res && res.ok) {
       dispatch(
         showToast({
-          message: 'Berhasil login',
+          message: 'login Successfully',
           type: 'green',
         })
       )
 
-      router.push('/')
+      router.push('/srticles')
     } else {
       dispatch(
         showToast({
@@ -98,7 +98,7 @@ export function LoginForm({
                   <AtSymbolIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
                   <Input
                     type="email"
-                    placeholder="masukan email anda"
+                    placeholder="input email"
                     className="pl-6"
                     theme={getVariant(isDirty, !!error)}
                     onBlur={onBlur}
@@ -128,7 +128,7 @@ export function LoginForm({
                   <Input
                     name="password"
                     type={isShowPass ? 'text' : 'password'}
-                    placeholder="masukan password anda"
+                    placeholder="input password"
                     className="px-6"
                     theme={getVariant(isDirty, !!error)}
                     onBlur={onBlur}

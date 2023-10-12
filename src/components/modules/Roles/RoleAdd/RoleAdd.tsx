@@ -119,7 +119,8 @@ const RoleAdd = React.forwardRef<
         <Controller
           control={control}
           defaultValue={[]}
-          render={({ field: { onBlur, value } }) => (
+          rules={{ required: formRules.required }}
+          render={({ field: { onBlur } }) => (
             <div className="mb-4">
               <div className="grid grid-cols-fill-12">
                 {permissionList.map((permission) =>

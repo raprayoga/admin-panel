@@ -56,7 +56,7 @@ const UsersSearchForm = React.forwardRef<
         <InputGroup className="w-full">
           <UserCircleIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
           <Input
-            type="name"
+            type="text"
             name="name"
             placeholder="name"
             className="pl-6"

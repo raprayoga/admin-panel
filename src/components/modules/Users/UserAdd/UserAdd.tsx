@@ -15,20 +15,20 @@ import { useRouter } from 'next/router'
 import Select from '@/components/elements/Select'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { UserAddInputForm } from '@/interface/user'
-import { roles } from '@/services/rolesService'
-import { DataResponse } from '@/interface/roles'
 import { addUsers } from '@/services/usersService'
 import { showToast } from '@/store/toast'
 import { Dispatch } from '@reduxjs/toolkit'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { sliceState } from '@/interface/state'
+import { rolesAsync } from '@/store/roles'
 
 const UserAdd = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => {
   const dispatch: Dispatch<any> = useDispatch()
+  const rolesList = useSelector((state: sliceState) => state.roles.data)
   const router = useRouter()
-  const [rolesList, setRolesList] = useState<DataResponse[]>([])
   const [isShowPass, setIsShowPass] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
@@ -65,13 +65,8 @@ const UserAdd = React.forwardRef<
   }
 
   useEffect(() => {
-    fetchRole()
+    dispatch(rolesAsync())
   }, [])
-
-  const fetchRole = async () => {
-    const data = await roles()
-    setRolesList(data.data)
-  }
 
   const handleCancel = () => {
     router.back()

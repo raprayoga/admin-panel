@@ -33,17 +33,17 @@ const SideBar = React.forwardRef<
         <ul>
           <li
             className={`mx-2.5 my-2 ${
-              router.pathname === '/' ? 'text-white' : 'text-gray'
+              router.pathname.includes('/articles') ? 'text-white' : 'text-gray'
             }`}
           >
-            <Link href="/" className="flex">
+            <Link href="/articles" className="flex">
               <TableCellsIcon className="mr-2 w-4" />
               Article
             </Link>
           </li>
           <li
             className={`mx-2.5 my-2 ${
-              router.pathname === '/category' ? 'text-white' : 'text-gray'
+              router.pathname.includes('/category') ? 'text-white' : 'text-gray'
             }`}
           >
             <Link href="/category" className="flex">

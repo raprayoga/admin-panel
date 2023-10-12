@@ -80,8 +80,8 @@ const RoleList = React.forwardRef<
           </thead>
           <tbody>
             {roles.length === 0 && (
-              <tr className="text-center">
-                <td colSpan={3}>Roles belum tersedia</td>
+              <tr className="border-b border-b-gray-shadow bg-white text-center">
+                <td colSpan={3}>Roles not yet available</td>
               </tr>
             )}
             {roles.length > 0 &&

@@ -96,90 +96,96 @@ const RoleEdit = React.forwardRef<
   return (
     <div {...props} className={cn('mx-auto w-4/5 ', className)} ref={ref}>
       {roleData && (
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <label className="">Name</label>
-          <Controller
-            control={control}
-            rules={{ required: formRules.required }}
-            defaultValue={roleData?.name}
-            render={({
-              field: { onChange, onBlur, value },
-              fieldState: { isDirty, error },
-            }) => (
-              <div className="mb-4">
-                <InputGroup className="w-full">
-                  <WrenchScrewdriverIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
-                  <Input
-                    name="name"
-                    className="pl-6"
-                    placeholder="input name"
-                    theme={getVariant(isDirty, !!error)}
-                    onBlur={onBlur}
-                    onChange={onChange}
-                    value={value}
-                  />
-                </InputGroup>
+        <>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <label className="">Name</label>
+            <Controller
+              control={control}
+              rules={{ required: formRules.required }}
+              defaultValue={roleData?.name}
+              render={({
+                field: { onChange, onBlur, value },
+                fieldState: { isDirty, error },
+              }) => (
+                <div className="mb-4">
+                  <InputGroup className="w-full">
+                    <WrenchScrewdriverIcon className="absolute left-2 right-auto w-3 stroke-2 text-gray" />
+                    <Input
+                      name="name"
+                      className="pl-6"
+                      placeholder="input name"
+                      theme={getVariant(isDirty, !!error)}
+                      onBlur={onBlur}
+                      onChange={onChange}
+                      value={value}
+                    />
+                  </InputGroup>
 
-                <span className="float-right text-[10px] text-red">
-                  {errors.name ? errors.name.message : ''}
-                </span>
-              </div>
-            )}
-            name="name"
-          />
-
-          <label className="">Permission</label>
-          <Controller
-            control={control}
-            defaultValue={roleData.permissions}
-            render={({ field: { onBlur, value } }) => (
-              <div className="mb-4">
-                <div className="grid grid-cols-fill-12">
-                  {permissionList.map((permission) =>
-                    permission.abilities.map((ability) => (
-                      <div key={ability} className="mb-4 flex items-center">
-                        <input
-                          id={ability}
-                          type="checkbox"
-                          className="bg-gray-100 border-gray-300  h-4 w-4 rounded text-blue-600 focus:ring-2 focus:ring-blue-500"
-                          onBlur={onBlur}
-                          onChange={() => handleChangePermissions(ability)}
-                          value={value}
-                          checked={watch('permissions').includes(ability)}
-                        />
-                        <label
-                          htmlFor={ability}
-                          className="text-gray-900 ml-2 text-sm font-medium"
-                        >
-                          {ability}
-                        </label>
-                      </div>
-                    ))
-                  )}
+                  <span className="float-right text-[10px] text-red">
+                    {errors.name ? errors.name.message : ''}
+                  </span>
                 </div>
+              )}
+              name="name"
+            />
 
-                <span className="float-right text-[10px] text-red">
-                  {errors.permissions ? errors.permissions.message : ''}
-                </span>
-              </div>
-            )}
-            name="permissions"
-          />
+            <label className="">Permission</label>
+            <Controller
+              control={control}
+              defaultValue={roleData.permissions}
+              render={({ field: { onBlur, value } }) => (
+                <div className="mb-4">
+                  <div className="grid grid-cols-fill-12">
+                    {permissionList.map((permission) =>
+                      permission.abilities.map((ability) => (
+                        <div key={ability} className="mb-4 flex items-center">
+                          <input
+                            id={ability}
+                            type="checkbox"
+                            className="bg-gray-100 border-gray-300  h-4 w-4 rounded text-blue-600 focus:ring-2 focus:ring-blue-500"
+                            onBlur={onBlur}
+                            onChange={() => handleChangePermissions(ability)}
+                            value={value}
+                            checked={watch('permissions').includes(ability)}
+                          />
+                          <label
+                            htmlFor={ability}
+                            className="text-gray-900 ml-2 text-sm font-medium"
+                          >
+                            {ability}
+                          </label>
+                        </div>
+                      ))
+                    )}
+                  </div>
 
-          <Button theme="primary" className="mt-8 w-full" isLoading={isLoading}>
-            Submit
+                  <span className="float-right text-[10px] text-red">
+                    {errors.permissions ? errors.permissions.message : ''}
+                  </span>
+                </div>
+              )}
+              name="permissions"
+            />
+
+            <Button
+              theme="primary"
+              className="mt-8 w-full"
+              isLoading={isLoading}
+            >
+              Submit
+            </Button>
+          </form>
+
+          <Button
+            theme="red"
+            variant="ghost"
+            className="mt-8 w-full"
+            onClick={handleCancel}
+          >
+            Cancel
           </Button>
-        </form>
+        </>
       )}
-
-      <Button
-        theme="red"
-        variant="ghost"
-        className="mt-8 w-full"
-        onClick={handleCancel}
-      >
-        Cancel
-      </Button>
     </div>
   )
 })

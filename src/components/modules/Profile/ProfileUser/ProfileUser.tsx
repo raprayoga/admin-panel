@@ -28,10 +28,6 @@ const ProfileUser = React.forwardRef<
     router.push('/auth/login')
   }
 
-  const handleToEdit = () => {
-    router.push('/profile/edit')
-  }
-
   return (
     <div {...props} className={cn('mx-auto w-4/5 ', className)} ref={ref}>
       <UserInfo userData={userData} />

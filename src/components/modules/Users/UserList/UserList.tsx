@@ -85,8 +85,8 @@ const UserList = React.forwardRef<
           </thead>
           <tbody>
             {users.length === 0 && (
-              <tr className="text-center">
-                <td colSpan={4}>User belum tersedia</td>
+              <tr className="border-b border-b-gray-shadow bg-white text-center">
+                <td colSpan={4}>User not yet available</td>
               </tr>
             )}
             {users.length > 0 &&
