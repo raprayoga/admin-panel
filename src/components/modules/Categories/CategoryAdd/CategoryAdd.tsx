@@ -32,7 +32,7 @@ const CategoryAdd = React.forwardRef<
       .then(() => {
         dispatch(
           showToast({
-            message: 'success add category',
+            message: 'success to add category',
             type: 'green',
           })
         )

@@ -65,7 +65,7 @@ const UserEdit = React.forwardRef<
     if (user.successFetch) {
       dispatch(
         showToast({
-          message: 'success update user',
+          message: 'success to update user',
           type: 'green',
         })
       )

@@ -37,7 +37,7 @@ const RoleAdd = React.forwardRef<
       .then(() => {
         dispatch(
           showToast({
-            message: 'success add role',
+            message: 'success to add role',
             type: 'green',
           })
         )

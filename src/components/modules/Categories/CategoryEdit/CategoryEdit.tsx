@@ -35,7 +35,7 @@ const CategoryEdit = React.forwardRef<
       .then(() => {
         dispatch(
           showToast({
-            message: 'success edit category',
+            message: 'success to edit category',
             type: 'green',
           })
         )
