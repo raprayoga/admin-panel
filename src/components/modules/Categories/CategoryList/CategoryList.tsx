@@ -101,7 +101,7 @@ const CategoryList = React.forwardRef<
                   </td>
                   <td className="px-6 py-4">{category.slug}</td>
                   <td className="justif-around flex gap-2 px-6 py-4">
-                    <Link href={`roles/${category._id}/edit`}>
+                    <Link href={`category/${category.slug}/edit`}>
                       <Button theme="yellow" className="px-3 py-1">
                         Edit
                       </Button>

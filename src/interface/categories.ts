@@ -4,6 +4,12 @@ export interface CategoriesResponse {
   data: DataResponse
 }
 
+export interface CategoryResponse {
+  statusCode: number
+  message: string
+  data: DocsResponse
+}
+
 export interface CategoriesPayload {
   name?: string
   slug?: string
@@ -11,13 +17,13 @@ export interface CategoriesPayload {
   limit?: string
 }
 
-interface DataResponse {
+export interface DataResponse {
   docs: DocsResponse[]
   page: number
   totalPages: number
 }
 
-interface DocsResponse {
+export interface DocsResponse {
   _id: string
   name: string
   slug: string
@@ -34,4 +40,10 @@ export interface CategoriesSliceState {
 
 export interface CategoryInputForm {
   name: string
+}
+
+export interface CategoryEditForm {
+  id: string
+  name: string
+  slug: string
 }
