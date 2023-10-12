@@ -15,3 +15,19 @@ export interface RolesSliceState {
   data: DataResponse[]
   error?: null | RolesResponse
 }
+
+export interface RolesInputForm {
+  name: string
+  permissions: string[]
+}
+
+export interface PermissionsResponse {
+  statusCode: number
+  message: string
+  data: DataPermissionsResponse[]
+}
+
+export interface DataPermissionsResponse {
+  module: string
+  abilities: string[]
+}

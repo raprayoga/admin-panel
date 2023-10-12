@@ -1,6 +1,6 @@
 import React from 'react'
 import DefaultLayout from '@/components/layouts/DefaultLayout'
-import RoleList from '@/components/modules/Roles'
+import RoleList from '@/components/modules/Roles/RoleList'
 import Button from '@/components/elements/Button'
 import { PlusIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
