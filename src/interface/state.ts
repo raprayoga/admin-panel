@@ -3,6 +3,7 @@ import { UsersSliceState } from './users'
 import { UserSliceState } from './user'
 import { ProfileSliceState } from './profile'
 import { RolesSliceState } from './roles'
+import { CategoriesSliceState } from './categories'
 
 export interface sliceState {
   toast: ToastSliceState
@@ -10,4 +11,5 @@ export interface sliceState {
   user: UserSliceState
   profile: ProfileSliceState
   roles: RolesSliceState
+  categories: CategoriesSliceState
 }

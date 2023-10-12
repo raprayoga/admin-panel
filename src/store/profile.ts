@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ProfileResponse, ProfileSliceState } from '@/interface/profile'
 import { profile } from '@/services/authService'
+import { autoSignOut } from '@/utils'
 
 const initialState: ProfileSliceState = {
   loading: false,
@@ -14,7 +15,9 @@ export const profileAsync = createAsyncThunk<ProfileResponse>(
     return await profile()
       .then((response) => response)
       .catch((error) => {
-        // if (error.response.status === 401) Router.push('/login')
+        if (error.response.status === 401) {
+          autoSignOut()
+        }
         return rejectWithValue(error.response.data)
       })
   }
