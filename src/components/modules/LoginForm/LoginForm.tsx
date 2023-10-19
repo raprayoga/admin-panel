@@ -88,7 +88,7 @@ export function LoginForm({
           <Controller
             control={control}
             rules={{ required: formRules.required, pattern: formRules.email }}
-            defaultValue=""
+            defaultValue="admin@admin.com"
             render={({
               field: { onChange, onBlur, value },
               fieldState: { isDirty, error },
