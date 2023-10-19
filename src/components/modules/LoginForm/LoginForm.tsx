@@ -117,7 +117,7 @@ export function LoginForm({
           <Controller
             control={control}
             rules={{ required: formRules.required }}
-            defaultValue=""
+            defaultValue="password"
             render={({
               field: { onChange, onBlur, value },
               fieldState: { isDirty, error },
